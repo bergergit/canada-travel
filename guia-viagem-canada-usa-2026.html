@@ -29,7 +29,7 @@
     }
     .hero-bg {
       position: absolute; inset: 0;
-      background: url('https://source.unsplash.com/1600x900/?canada,travel,mountains,lake') center/cover no-repeat;
+      background: url('https://picsum.photos/seed/canada-hero/1600/900') center/cover no-repeat;
       opacity: 0.2;
     }
     .hero-content { position: relative; z-index: 1; }
@@ -2217,6 +2217,48 @@
     if (btn) btn.classList.add('active');
     document.getElementById('main-nav').scrollIntoView({ behavior: 'smooth' });
   }
+
+  // Fix deprecated source.unsplash.com URLs → picsum.photos (reliable image CDN)
+  (function fixImages() {
+    const seeds = [
+      'canada-mountains','toronto-market','craft-beer','cn-tower','aquarium',
+      'lake-ontario','city-night','niagara-falls','boat-water','tunnel-rock',
+      'tower-view','brick-district','skyscraper','fashion-street','steakhouse',
+      'montreal-old','notre-dame-church','cobblestone-street','ferris-wheel','bistro-dinner',
+      'mont-royal-park','saint-joseph-church','underground-city','plateau-street','biodome-nature',
+      'jean-talon-market','biosphere-dome','atwater-market','canal-cycling','amusement-park',
+      'french-bistro','vancouver-mountains','granville-island','gastown-clock','coal-harbour',
+      'sushi-restaurant','stanley-park-forest','sea-otter-aquarium','craft-brewery','robson-street',
+      'suspension-bridge','forest-trail','whistler-gondola','grouse-mountain','flyover-canada',
+      'indigenous-museum','kitsilano-beach','harbour-farewell','chicago-bean','art-museum',
+      'chicago-riverwalk','deep-dish-pizza','willis-tower-night','architecture-river','shedd-aquarium',
+      'magnificent-mile','john-hancock-view','navy-pier-fireworks','lincoln-park-zoo',
+      'starbucks-roastery','wicker-park-vintage','bavettes-steak','blues-club-music'
+    ];
+    let i = 0;
+    // Fix <img> tags
+    document.querySelectorAll('img[src*="source.unsplash.com"]').forEach(img => {
+      const seed = seeds[i % seeds.length] + '-' + i;
+      const w = 800, h = 500;
+      img.src = `https://picsum.photos/seed/${seed}/${w}/${h}`;
+      i++;
+    });
+    // Fix inline style background-image (city headers, hero)
+    document.querySelectorAll('[style*="source.unsplash.com"]').forEach(el => {
+      const seed = seeds[i % seeds.length] + '-' + i;
+      const isHero = el.classList.contains('hero-bg');
+      const url = isHero
+        ? `https://picsum.photos/seed/${seed}/1600/900`
+        : `https://picsum.photos/seed/${seed}/1600/600`;
+      el.style.backgroundImage = `url('${url}')`;
+      i++;
+    });
+    // Fix CSS .hero-bg if set via stylesheet (fallback)
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg && !heroBg.style.backgroundImage.includes('picsum')) {
+      heroBg.style.backgroundImage = "url('https://picsum.photos/seed/canada-hero-bg/1600/900')";
+    }
+  })();
 </script>
 
 </body>

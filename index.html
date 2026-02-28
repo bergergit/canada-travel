@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia E&F | Canadá & EUA 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --toronto: #C41E3A;
+      --montreal: #003DA5;
+      --vancouver: #1a6b3c;
+      --chicago: #1F2D6E;
+      --text: #2d2d2d;
+      --text-light: #666;
+      --bg: #f7f6f3;
+      --card-bg: #ffffff;
+      --border: #e5e2dc;
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0f1729 0%, #1a2744 50%, #0d2137 100%);
+      color: white; padding: 80px 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://source.unsplash.com/1600x900/?canada,travel,mountains,lake') center/cover no-repeat;
+      opacity: 0.2;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.65; margin-bottom: 14px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; margin-bottom: 6px; }
+    .hero h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; font-style: italic; opacity: 0.85; margin-bottom: 40px; }
+    .trip-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2rem; font-weight: 700; display: block; }
+    .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.6; }
+
+    /* ── TIMELINE STRIP ── */
+    .timeline-strip {
+      background: #1a1a2e; color: white; padding: 20px 40px;
+      display: flex; justify-content: center; gap: 0; flex-wrap: wrap; overflow-x: auto;
+    }
+    .timeline-city {
+      display: flex; flex-direction: column; align-items: center; padding: 8px 24px;
+      border-right: 1px solid rgba(255,255,255,0.15); cursor: pointer;
+    }
+    .timeline-city:last-child { border-right: none; }
+    .timeline-city:hover { background: rgba(255,255,255,0.05); }
+    .timeline-name { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; }
+    .timeline-dates { font-size: 0.7rem; opacity: 0.55; margin-top: 2px; }
+    .timeline-dot {
+      width: 8px; height: 8px; border-radius: 50%; margin-top: 6px;
+    }
+
+    /* ── NAV ── */
+    .city-nav {
+      position: sticky; top: 0; z-index: 100; background: white;
+      border-bottom: 1px solid var(--border); display: flex; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .nav-btn {
+      border: none; background: none; padding: 18px 28px;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.5px; cursor: pointer; color: var(--text-light);
+      border-bottom: 3px solid transparent; transition: all 0.2s; text-transform: uppercase;
+    }
+    .nav-btn:hover { color: var(--text); }
+    .nav-btn.toronto.active  { color: var(--toronto);  border-bottom-color: var(--toronto); }
+    .nav-btn.montreal.active { color: var(--montreal); border-bottom-color: var(--montreal); }
+    .nav-btn.vancouver.active{ color: var(--vancouver);border-bottom-color: var(--vancouver); }
+    .nav-btn.chicago.active  { color: var(--chicago);  border-bottom-color: var(--chicago); }
+
+    /* ── CITY SECTIONS ── */
+    .city-section { display: none; }
+    .city-section.active { display: block; }
+
+    .city-header {
+      padding: 60px 40px; color: white; text-align: center;
+      position: relative; min-height: 240px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .city-header-bg {
+      position: absolute; inset: 0; background-size: cover;
+      background-position: center; opacity: 0.3;
+    }
+    .city-header-content { position: relative; z-index: 1; }
+    .city-header h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 6px; }
+    .city-header p { font-size: 0.9rem; opacity: 0.85; letter-spacing: 1px; }
+    .toronto-color  { background: var(--toronto); }
+    .montreal-color { background: var(--montreal); }
+    .vancouver-color{ background: var(--vancouver); }
+    .chicago-color  { background: var(--chicago); }
+
+    /* ── CONTENT ── */
+    .city-content { max-width: 1240px; margin: 0 auto; padding: 48px 24px; }
+
+    /* ── DAY HEADER ── */
+    .day-section { margin-bottom: 56px; }
+    .day-header {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid var(--border);
+    }
+    .day-number {
+      width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; color: white; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .day-info h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 2px; }
+    .day-info p { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; }
+    .day-tag {
+      margin-left: auto; padding: 6px 14px; border-radius: 20px;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: white;
+    }
+
+    /* ── GRID ── */
+    .activities-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .activity-card {
+      background: var(--card-bg); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .activity-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.13); }
+    .card-image { position: relative; height: 200px; overflow: hidden; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; display: block; }
+    .activity-card:hover .card-image img { transform: scale(1.06); }
+    .type-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(0,0,0,0.68); color: white;
+      padding: 4px 10px; border-radius: 20px; font-size: 0.68rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+    }
+    .reserve-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: #e53935; color: white;
+      padding: 4px 10px; border-radius: 20px; font-size: 0.65rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .new-badge {
+      position: absolute; bottom: 12px; right: 12px;
+      background: #f59e0b; color: white;
+      padding: 4px 10px; border-radius: 20px; font-size: 0.65rem;
+      font-weight: 700; text-transform: uppercase;
+    }
+    .card-body { padding: 20px; }
+    .card-time { font-size: 0.75rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 1.18rem; margin-bottom: 10px; color: var(--text); }
+    .card-desc { font-size: 0.865rem; color: #555; margin-bottom: 14px; line-height: 1.7; }
+    .card-tips { background: #f6f5f2; border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+    .card-tips-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .card-tips ul { list-style: none; }
+    .card-tips li { font-size: 0.8rem; color: var(--text-light); padding: 2px 0 2px 14px; position: relative; }
+    .card-tips li::before { content: '→'; position: absolute; left: 0; color: #bbb; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .card-price { font-size: 0.8rem; font-weight: 600; color: #2e7d32; }
+    .card-duration { font-size: 0.72rem; color: var(--text-light); background: #eeece9; padding: 3px 10px; border-radius: 12px; }
+
+    /* ── ALERTS ── */
+    .alert { border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; display: flex; gap: 12px; }
+    .alert-warning { background: #fff8e1; border-left: 4px solid #f59e0b; }
+    .alert-info    { background: #e8f4fd; border-left: 4px solid #3b82f6; }
+    .alert-success { background: #e8f8f0; border-left: 4px solid #22c55e; }
+    .alert-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .alert-text { font-size: 0.875rem; line-height: 1.65; }
+    .alert-text strong { display: block; margin-bottom: 4px; }
+
+    /* ── TRANSPORT ── */
+    .transport-card {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 100%);
+      color: white; border-radius: var(--radius); padding: 20px 28px; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .transport-icon { font-size: 2rem; flex-shrink: 0; }
+    .transport-info { flex: 1; }
+    .transport-route { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .transport-details { font-size: 0.78rem; opacity: 0.7; }
+    .transport-time { text-align: right; flex-shrink: 0; }
+    .transport-depart { font-size: 1.2rem; font-weight: 700; }
+    .transport-arrive { font-size: 0.75rem; opacity: 0.65; margin-top: 2px; }
+
+    /* ── FOOTER ── */
+    footer { background: #12121e; color: rgba(255,255,255,0.5); text-align: center; padding: 36px; font-size: 0.8rem; }
+    footer strong { color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero h2 { font-size: 1.1rem; }
+      .trip-stats { gap: 20px; }
+      .nav-btn { padding: 14px 14px; font-size: 0.7rem; }
+      .city-header h2 { font-size: 2.5rem; }
+      .activities-grid { grid-template-columns: 1fr; }
+      .transport-card { flex-direction: column; gap: 12px; }
+      .transport-time { text-align: left; }
+    }
+    @media print {
+      .city-nav, .timeline-strip { display: none; }
+      .city-section { display: block !important; page-break-after: always; }
+      .activity-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Roteiro Personalizado • Agosto–Setembro 2026</p>
+    <h1>✈️ Evelise & Fabio</h1>
+    <h2>Canadá & Estados Unidos</h2>
+    <div class="trip-stats">
+      <div class="stat"><span class="stat-value">13/08</span><span class="stat-label">Partida</span></div>
+      <div class="stat"><span class="stat-value">20</span><span class="stat-label">Dias</span></div>
+      <div class="stat"><span class="stat-value">4</span><span class="stat-label">Cidades</span></div>
+      <div class="stat"><span class="stat-value">2</span><span class="stat-label">Países</span></div>
+      <div class="stat"><span class="stat-value">01/09</span><span class="stat-label">Retorno</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ TIMELINE ═══════════════════ -->
+<div class="timeline-strip">
+  <div class="timeline-city" onclick="showCity('toronto')">
+    <span class="timeline-name">🇨🇦 Toronto</span>
+    <span class="timeline-dates">14–17 ago · 4 noites</span>
+    <div class="timeline-dot" style="background: var(--toronto)"></div>
+  </div>
+  <div class="timeline-city" onclick="showCity('montreal')">
+    <span class="timeline-name">🏙️ Montréal</span>
+    <span class="timeline-dates">18–22 ago · 5 noites</span>
+    <div class="timeline-dot" style="background: var(--montreal)"></div>
+  </div>
+  <div class="timeline-city" onclick="showCity('vancouver')">
+    <span class="timeline-name">🌲 Vancouver</span>
+    <span class="timeline-dates">23–26 ago · 4 dias</span>
+    <div class="timeline-dot" style="background: var(--vancouver)"></div>
+  </div>
+  <div class="timeline-city" onclick="showCity('chicago')">
+    <span class="timeline-name">🇺🇸 Chicago</span>
+    <span class="timeline-dates">27–30 ago · 4 noites</span>
+    <div class="timeline-dot" style="background: var(--chicago)"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="city-nav" id="main-nav">
+  <button class="nav-btn toronto active"  onclick="showCity('toronto')">🇨🇦 Toronto</button>
+  <button class="nav-btn montreal"         onclick="showCity('montreal')">🏙️ Montréal</button>
+  <button class="nav-btn vancouver"        onclick="showCity('vancouver')">🌲 Vancouver</button>
+  <button class="nav-btn chicago"          onclick="showCity('chicago')">🇺🇸 Chicago</button>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════
+     TORONTO
+════════════════════════════════════════════════════ -->
+<section id="toronto" class="city-section active">
+  <div class="city-header toronto-color">
+    <div class="city-header-bg" style="background-image:url('https://source.unsplash.com/1600x600/?toronto,skyline,lake')"></div>
+    <div class="city-header-content">
+      <h2>Toronto</h2>
+      <p>14 a 17 de agosto · 4 pernoites · Ontario, Canadá</p>
+    </div>
+  </div>
+
+  <div class="city-content">
+
+    <div class="transport-card">
+      <div class="transport-icon">✈️</div>
+      <div class="transport-info">
+        <div class="transport-route">GRU São Paulo → YYZ Toronto</div>
+        <div class="transport-details">Air Canada AC91 · Boeing 787-9 · Econômico · Direto · 10h · 2 malas despachadas</div>
+      </div>
+      <div class="transport-time">
+        <div class="transport-depart">13/08 · 21:35</div>
+        <div class="transport-arrive">Chegada 14/08 · 06:40</div>
+      </div>
+    </div>
+
+    <!-- 14/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--toronto)">14</div>
+        <div class="day-info"><h3>Chegada em Toronto</h3><p>Sexta-feira, 14 de agosto</p></div>
+        <span class="day-tag" style="background:var(--toronto)">Chegada</span>
+      </div>
+
+      <div class="alert alert-success">
+        <span class="alert-icon">🕕</span>
+        <div class="alert-text">
+          <strong>Chegada às 06:40 — mais cedo que o previsto!</strong>
+          O roteiro original estimava 09:30, mas o voo AC91 chega às 06:40. Isso dá quase 3h extras no primeiro dia. Reserve ~1h30 para imigração + alfândega — aeroporto de Toronto costuma ter fila. Transporte: UP Express (trem) leva 25min até o centro por $12 CAD/pessoa.
+        </div>
+      </div>
+
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#C41E3A,#8B0000)">
+            <img src="https://source.unsplash.com/800x500/?tim+hortons,coffee,donut,canada" alt="Tim Hortons" onerror="this.style.display='none'">
+            <span class="type-badge">☕ Café</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 10:00</div>
+            <h4 class="card-name">Tim Hortons — Primeiro Café Canadense</h4>
+            <p class="card-desc">O símbolo nacional do Canadá. Um Tim Hortons existe em praticamente toda esquina — e o ritual de entrar e pedir o café certo é uma experiência cultural. O "Double Double" (café com dois cremes e dois açúcares) é o pedido mais famoso, e os Timbits (bolinhas de rosca) são simplesmente deliciosas.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Há uma unidade no próprio Aeroporto Pearson (Terminal 1)</li>
+                <li>Timbits: peça o mix de sabores — chocolate, maple e original</li>
+                <li>Preço acessível: café + Timbit por ~$4 CAD</li>
+                <li>App Tim Hortons: acumula pontos para bebidas grátis</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$8-12 CAD por casal</span>
+              <span class="card-duration">⏱ 30-60min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#2c3e50,#3498db)">
+            <img src="https://source.unsplash.com/800x500/?toronto,dundas,square,city" alt="Dundas Square" onerror="this.style.display='none'">
+            <span class="type-badge">🌆 Urbano</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 15:00 — 19:00</div>
+            <h4 class="card-name">Dundas Square — Ambientação na Cidade</h4>
+            <p class="card-desc">Yonge-Dundas Square é o centro pulsante de Toronto — telões gigantes, movimento constante, restaurantes de todos os tipos ao redor. Chamada de "Times Square de Toronto", fica a passos de shoppings, do bairro do Chinatown e da linha de metrô. Ideal para a chegada leve após 10h de voo.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Reserve este primeiro dia leve — jet lag é real após 10h de voo</li>
+                <li>Jantar ao redor: ramen (Kenzo Ramen), pizza ou pub canadense</li>
+                <li>Dorme cedo — amanhã é dia cheio!</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 2-3h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 15/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--toronto)">15</div>
+        <div class="day-info"><h3>O Melhor de Toronto</h3><p>Sábado, 15 de agosto</p></div>
+        <span class="day-tag" style="background:var(--toronto)">Dia Cheio</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#7b2d8b,#3498db)">
+            <img src="https://source.unsplash.com/800x500/?kensington,market,toronto,street" alt="Kensington Market" onerror="this.style.display='none'">
+            <span class="type-badge">🎨 Bairro</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:30 — 12:00</div>
+            <h4 class="card-name">Kensington Market</h4>
+            <p class="card-desc">Um bairro boêmio que atrai artistas e turistas pelas suas lojas independentes, boutiques vintage, murais coloridos e espaços de arte. A diversidade cultural de Toronto se revela aqui de forma completamente autêntica — espanhol, português, caribenho, asiático e europeu, tudo em poucas ruas de paralelepípedo.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Chegue antes das 10h — sábados ficam movimentados rapidamente</li>
+                <li>Bellevue Square Park: bom para um descanso no centro do bairro</li>
+                <li>Street food de todos os países — experimente!</li>
+                <li>Caminhar é a única forma de aproveitar</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#795548,#a1887f)">
+            <img src="https://source.unsplash.com/800x500/?craft,brewery,beer,toronto" alt="Bellwoods Brewery" onerror="this.style.display='none'">
+            <span class="type-badge">🍺 Cervejaria</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 12:30 — 14:30</div>
+            <h4 class="card-name">Bellwoods Brewery — Almoço</h4>
+            <p class="card-desc">Uma das cervejarias artesanais mais icônicas de Toronto, no bairro de Trinity Bellwoods. O cardápio de comida é tão cuidadoso quanto as cervejas — sanduíches bem feitos, petiscos e pratos que mudam com a temporada. Ambiente casual e descontraído, frequentado pelos moradores do bairro.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Sábados ficam cheios — chegue logo que abrir (12h) ou prepare-se para esperar</li>
+                <li>Experimente as Wild Ales (fermentação espontânea) — especialidade da casa</li>
+                <li>124 Ossington Ave — 10min a pé do Kensington Market</li>
+                <li>Não aceita reserva — fila pode aparecer</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$40-60 CAD por casal</span>
+              <span class="card-duration">⏱ 1h30-2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#C41E3A,#8B0000)">
+            <img src="https://source.unsplash.com/800x500/?cn+tower,toronto,skyline" alt="CN Tower" onerror="this.style.display='none'">
+            <span class="type-badge">🗼 Mirante</span>
+            <span class="reserve-badge">Ingresso Online</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 15:00 — 16:30</div>
+            <h4 class="card-name">CN Tower</h4>
+            <p class="card-desc">Com 553 metros, foi a estrutura mais alta do mundo por 34 anos. O deck de observação e o famoso Glass Floor (piso transparente de vidro a 342m de altura) oferecem uma vista de Toronto e do Lago Ontário que não se esquece. No entardecer a luz é especialmente bonita sobre o lago.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Compre online — evita filas enormes, especialmente no sábado</li>
+                <li>Combo CN Tower + Ripley's Aquarium sai mais barato</li>
+                <li>Glass Floor: sim, é assustador mesmo. Vale pisar!</li>
+                <li>Restaurante 360° (giratório) — caro, só vale pelo visual se quiser jantar diferente</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$43 CAD/pessoa</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006994,#1a8bc2)">
+            <img src="https://source.unsplash.com/800x500/?aquarium,shark,underwater,toronto" alt="Ripley's Aquarium" onerror="this.style.display='none'">
+            <span class="type-badge">🦈 Aquário</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 17:00 — 18:30</div>
+            <h4 class="card-name">Ripley's Aquarium of Canada</h4>
+            <p class="card-desc">Um dos melhores aquários da América do Norte, com mais de 20.000 animais marinhos. O Dangerous Lagoon — túnel subaquático de 96 metros com tubarões, raias e peixes-serra — é absolutamente impressionante. Localizado ao lado do CN Tower, é fácil de combinar na mesma tarde.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Combo com CN Tower vale a pena economicamente</li>
+                <li>Aberto até 23h — ótima opção para visitar à noite também</li>
+                <li>Gallery of the Dangerous Lagoon: chegue quando não estiver cheio para aproveitar</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$42 CAD/pessoa</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a3c5e,#2980b9)">
+            <img src="https://source.unsplash.com/800x500/?toronto,island,lake,ontario,boat" alt="Toronto Island" onerror="this.style.display='none'">
+            <span class="type-badge">⛵ Passeio</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:30 — 21:00</div>
+            <h4 class="card-name">Toronto Island & City Cruises</h4>
+            <p class="card-desc">Peguem o ferry no Jack Layton Ferry Terminal (em frente ao Queens Quay) para o passeio de barco pelo Lago Ontário com a City Cruises. A vista do skyline de Toronto ao entardecer — CN Tower refletida no lago — é um dos momentos mais fotogênicos de toda a viagem. Encerra o dia da melhor forma.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Ferry ida e volta: $9.30 CAD por pessoa</li>
+                <li>City Cruises: verifique horários online — parte do mesmo terminal</li>
+                <li>Leve um casaco leve — o lago é mais frio que a cidade</li>
+                <li>Pôr do sol em agosto: por volta das 20h30 — horário perfeito</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Ferry $9 CAD / Cruzeiro ~$30 CAD</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 16/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--toronto)">16</div>
+        <div class="day-info"><h3>Cataratas do Niágara</h3><p>Domingo, 16 de agosto</p></div>
+        <span class="day-tag" style="background:var(--toronto)">Bate-volta</span>
+      </div>
+      <div class="alert alert-info">
+        <span class="alert-icon">🚗</span>
+        <div class="alert-text">
+          <strong>Bate-volta ~25km de Toronto — saída às 08h</strong>
+          Opções: aluguel de carro (fácil pela QEW, ~35min) ou tour organizado saindo do centro (inclui transporte + guia). Chegando cedo, você evita as filas do barco que se formam depois das 10h.
+        </div>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a5276,#2e86c1)">
+            <img src="https://source.unsplash.com/800x500/?niagara+falls,waterfall,canada,horseshoe" alt="Niagara Falls" onerror="this.style.display='none'">
+            <span class="type-badge">💧 Natureza</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 10:00</div>
+            <h4 class="card-name">Cataratas do Niágara — Horseshoe Falls</h4>
+            <p class="card-desc">Uma das maravilhas naturais mais impressionantes do mundo. Com 57m de altura e mais de 2.500m de largura, as Horseshoe Falls do lado canadense são as mais espetaculares das três quedas. O barulho constante, a névoa que cobre tudo e a quantidade de água que cai a cada segundo são difíceis de dimensionar antes de estar lá.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Table Rock: plataforma de acesso gratuito, literalmente à beira da queda</li>
+                <li>Chegue antes das 10h para evitar multidão — agosto é altíssima temporada</li>
+                <li>Vista do lado americano: diferente e também linda (mas precisa atravessar a fronteira)</li>
+                <li>À noite as cataratas são iluminadas em cores — espetáculo diferente</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Table Rock: Gratuito</span>
+              <span class="card-duration">⏱ 1h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#154360,#1a6188)">
+            <img src="https://source.unsplash.com/800x500/?niagara,boat,mist,cruise,waterfall" alt="Niagara Cruises" onerror="this.style.display='none'">
+            <span class="type-badge">⛵ Cruzeiro</span>
+            <span class="reserve-badge">Reserva Online</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 10:00 — 11:30</div>
+            <h4 class="card-name">Niagara City Cruises</h4>
+            <p class="card-desc">O barco se aproxima das Horseshoe Falls mergulhando na névoa densa das cataratas. Uma experiência completamente molhada — capa de chuva vermelha está incluída no ingresso. É definitivamente um dos passeios de barco mais memoráveis do mundo. Fique na parte de trás do convés para a melhor vista.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Reserve ONLINE — em agosto esgota facilmente</li>
+                <li>Coloque a câmera em saquinho plástico — fica tudo molhado mesmo com a capa</li>
+                <li>Convés superior na proa: melhor vista e mais névoa</li>
+                <li>Tênis velhos são recomendados — o deck fica escorregadio</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$32 CAD/pessoa</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4a235a,#7d3c98)">
+            <img src="https://source.unsplash.com/800x500/?niagara,falls,behind,tunnel,rock" alt="Journey Behind the Falls" onerror="this.style.display='none'">
+            <span class="type-badge">🚇 Atração</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:30 — 12:30</div>
+            <h4 class="card-name">Journey Behind the Falls</h4>
+            <p class="card-desc">Elevadores descem até túneis esculpidos na rocha que chegam atrás da própria catarata. O estrondo ensurdecedor da água e a névoa que envolve tudo criam uma experiência completamente diferente da vista de cima. A Portal — abertura na rocha com vista direta para a queda d'água — é extraordinariamente fotogênica.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Capa de chuva incluída — mas considere levar uma extra, fica bem molhado</li>
+                <li>Combine com o cruzeiro de barco no mesmo dia para experiências complementares</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$20 CAD/pessoa</span>
+              <span class="card-duration">⏱ 1h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#7b241c,#c0392b)">
+            <img src="https://source.unsplash.com/800x500/?skylon,tower,niagara,observation" alt="Skylon Tower" onerror="this.style.display='none'">
+            <span class="type-badge">🗼 Mirante</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 13:00 — 15:00</div>
+            <h4 class="card-name">Skylon Tower + Almoço + Maple Syrup</h4>
+            <p class="card-desc">Torre de observação a 52 andares com a melhor vista panorâmica das três quedas do Niágara ao mesmo tempo. Aproveite para a degustação de xarope de ácer (maple syrup) nas lojas da região — experimente os diferentes graus (Golden, Amber, Dark) e volte para casa com uma lata.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Deck de observação: ~$20 CAD/pessoa (restaurante é muito caro, só se quiser)</li>
+                <li>Maple syrup: compre em lojas locais, não em souvenir shops de aeroporto</li>
+                <li>Almoço barato: opções no centro de Niagara Falls Town</li>
+                <li>Retorno a Toronto: saía às 16h para chegar tranquilo ao hotel</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Tower: ~$20 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 17/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--toronto)">17</div>
+        <div class="day-info"><h3>Toronto Histórico & Gastronomia</h3><p>Segunda-feira, 17 de agosto</p></div>
+        <span class="day-tag" style="background:var(--toronto)">Último Dia</span>
+      </div>
+      <div class="alert alert-warning">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-text">
+          <strong>St. Lawrence Market FECHADO às segundas-feiras</strong>
+          O roteiro original incluía o mercado hoje, mas ele não abre às segundas (South Market: Ter–Sex 9h–19h, Sáb 5h–17h). Substituímos pelo Distillery District — igualmente incrível e muito mais fotogênico!
+        </div>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4a2c1a,#8b5a2b)">
+            <img src="https://source.unsplash.com/800x500/?distillery+district,toronto,brick,historic" alt="Distillery District" onerror="this.style.display='none'">
+            <span class="type-badge">🏛️ Histórico</span>
+            <span class="new-badge">⭐ Substituição</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 11:30</div>
+            <h4 class="card-name">Distillery District ⭐ (no lugar do St. Lawrence)</h4>
+            <p class="card-desc">Uma das áreas mais fotogênicas de Toronto — complexo histórico de tijolos vermelhos vitoriano do século XIX, preservado e transformado em espaço cultural vibrante. Galerias de arte contemporânea, restaurantes autorais, lojas artesanais e cafés especializados. Altamente recomendável para fotos de viagem.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Balzac's Coffee (no bairro): café de especialidade em ambiente histórico icônico</li>
+                <li>Toda a infraestrutura é de pedra e tijolo aparente — fotogênico a cada esquina</li>
+                <li>Galerias e lojas abrem às 10h — chegue antes para ver a arquitetura em paz</li>
+                <li>A 15min caminhando do centro financeiro</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a1a1a,#3d3d3d)">
+            <img src="https://source.unsplash.com/800x500/?toronto,financial,district,skyscraper" alt="Centro Financeiro" onerror="this.style.display='none'">
+            <span class="type-badge">🏙️ Urbano</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 12:00 — 14:00</div>
+            <h4 class="card-name">Centro Financeiro & TD Bank Tower</h4>
+            <p class="card-desc">Caminhada pelo coração econômico de Toronto. O TD Centre (TD Bank Tower), projetado por Mies van der Rohe, é uma das obras do modernismo internacional. O PATH — rede subterrânea de 30km de corredores climatizados que conecta os edifícios do centro — é fascinante de explorar entre almoço e tarde.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Almoço: Food courts do PATH têm ótimas e acessíveis opções</li>
+                <li>Hockey Hall of Fame fica a 5min (se houver interesse)</li>
+                <li>St. Lawrence Market: agora fechado, mas verifique se conseguiram no sábado cedo</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (PATH e exterior)</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#2c3e50,#546e7a)">
+            <img src="https://source.unsplash.com/800x500/?toronto,fashion,shopping,boutique" alt="Fashion District" onerror="this.style.display='none'">
+            <span class="type-badge">🛍️ Compras</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 14:30 — 17:30</div>
+            <h4 class="card-name">Distrito da Moda de Toronto</h4>
+            <p class="card-desc">O Fashion District fica na área King West / Spadina, com showrooms, boutiques multimarcas e lojas de design canadense. Tarde agradável para compras ou vitrines. A King Street também tem excelentes cafés para uma pausa antes do jantar especial da noite.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Marcas canadenses: Aritzia, Roots, Arc'teryx, Lululemon</li>
+                <li>Cafés da área: Early Bird Coffee, Jimmy's Coffee</li>
+                <li>Prepare-se bem para o jantar — é o ponto alto gastronômico de Toronto</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2-3h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a0a00,#3d1a00)">
+            <img src="https://source.unsplash.com/800x500/?steakhouse,fine+dining,ribeye,dry+aged" alt="Jacobs Steakhouse" onerror="this.style.display='none'">
+            <span class="type-badge">🥩 Jantar Especial</span>
+            <span class="reserve-badge">Reserva Obrigatória</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:30 — 22:00</div>
+            <h4 class="card-name">Jacobs & Co. Steakhouse</h4>
+            <p class="card-desc">Considerado um dos melhores steakhouses do Canadá. Cortes dry-aged envelhecidos na própria casa — Wagyu japonês, Prime americano e cortes especiais ficam em câmara de maturação visível no salão. A adega com mais de 2.000 rótulos é impressionante. O jantar de despedida perfeito de Toronto.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>RESERVA OBRIGATÓRIA — faça semanas antes pelo site jacobssteakhouse.com</li>
+                <li>Côte de boeuf para dois — a pedida para ocasiões especiais</li>
+                <li>Dress code: smart casual (sem bermudas ou chinelos)</li>
+                <li>Orçamento realista: ~$150-200 CAD por pessoa com uma taça de vinho</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$300-400 CAD por casal</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     MONTREAL
+════════════════════════════════════════════════════ -->
+<section id="montreal" class="city-section">
+  <div class="city-header montreal-color">
+    <div class="city-header-bg" style="background-image:url('https://source.unsplash.com/1600x600/?montreal,old,city,night')"></div>
+    <div class="city-header-content">
+      <h2>Montréal</h2>
+      <p>18 a 22 de agosto · 5 pernoites · Québec, Canadá</p>
+    </div>
+  </div>
+
+  <div class="city-content">
+
+    <div class="transport-card">
+      <div class="transport-icon">🚂</div>
+      <div class="transport-info">
+        <div class="transport-route">Toronto Union Station → Montréal Central Station</div>
+        <div class="transport-details">Via Rail Canada · 18/08 · ~5h20 de viagem · Paisagens de Ontário e Québec</div>
+      </div>
+      <div class="transport-time">
+        <div class="transport-depart">18/08 · 10:38</div>
+        <div class="transport-arrive">Chegada 18/08 · 18:00</div>
+      </div>
+    </div>
+
+    <!-- 18/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--montreal)">18</div>
+        <div class="day-info"><h3>Chegada de Trem em Montréal</h3><p>Terça-feira, 18 de agosto</p></div>
+        <span class="day-tag" style="background:var(--montreal)">Chegada</span>
+      </div>
+      <div class="alert alert-info">
+        <span class="alert-icon">🚂</span>
+        <div class="alert-text">
+          <strong>A viagem de trem já é parte da experiência!</strong>
+          O Via Rail Toronto–Montréal percorre paisagens rurais de Ontário e Québec. Leve livro, fones de ouvido e lanches. A Gare Centrale de Montréal fica debaixo do Hotel Fairmont Queen Elizabeth, no coração do downtown.
+        </div>
+      </div>
+      <div class="activities-grid">
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#003DA5,#1565C0)">
+            <img src="https://source.unsplash.com/800x500/?montreal,old+city,night,historic" alt="Montréal à noite" onerror="this.style.display='none'">
+            <span class="type-badge">🌙 Chegada</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 18:00 — 21:00</div>
+            <h4 class="card-name">Check-in & Primeira Noite em Montréal</h4>
+            <p class="card-desc">Chegada à gare às 18h. Após check-in, se tiverem energia, uma caminhada curta pelo Vieux-Montréal à noite revela a cidade de uma forma completamente diferente — iluminação especial nas fachadas, restaurantes cheios e o calçamento de pedra cria uma atmosfera quase europeia. Jantar simples por conta do cansaço do trem.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Montréal usa a mesma timezone de Toronto (Eastern)</li>
+                <li>Rue Notre-Dame Ouest: opções de jantar para todos os bolsos</li>
+                <li>Metro: bilhete avulso $3.75 CAD ou OPUS card recarregável</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">—</span>
+              <span class="card-duration">⏱ Chegada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--montreal)">19</div>
+        <div class="day-info"><h3>Vieux-Montréal — A Cidade Histórica</h3><p>Quarta-feira, 19 de agosto</p></div>
+        <span class="day-tag" style="background:var(--montreal)">Dia Completo</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a237e,#303f9f)">
+            <img src="https://source.unsplash.com/800x500/?notre+dame,montreal,basilica,church" alt="Notre-Dame Montreal" onerror="this.style.display='none'">
+            <span class="type-badge">⛪ Basílica</span>
+            <span class="reserve-badge">Ingresso Online</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 10:30</div>
+            <h4 class="card-name">Basílica de Notre-Dame & Place d'Armes</h4>
+            <p class="card-desc">Uma das igrejas mais bonitas das Américas. O interior em azul celeste e dourado, com entalhes de madeira ultra-detalhados e vitrais que enchem o espaço de cor, é de tirar o fôlego. O espetáculo de luzes AURA acontece à noite com projeções sobre o interior — é uma experiência completamente diferente e muito especial.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Ingressos online: evita fila e garante entrada no horário</li>
+                <li>Espetáculo AURA noturno: ~$30 CAD — altamente recomendado, reserve</li>
+                <li>Roupas respeitosas: sem shorts curtos ou decotes profundos</li>
+                <li>Place d'Armes na frente: ótimo ponto de fotos externas</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$15 CAD/pessoa (AURA: ~$30 CAD)</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4e342e,#795548)">
+            <img src="https://source.unsplash.com/800x500/?old+montreal,street,cobblestone,historic" alt="Rue Saint-Paul" onerror="this.style.display='none'">
+            <span class="type-badge">🎨 Rua Histórica</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 10:30 — 13:00</div>
+            <h4 class="card-name">Rue Saint-Paul & Marché Bonsecours</h4>
+            <p class="card-desc">A rua mais antiga de Montréal, fundada em 1642. Galerias de arte, ateliês de artesanato e restaurantes charmates se estendem ao longo do calçamento de paralelepípedo. O Marché Bonsecours — a cúpula prateada que é um dos ícones de Montréal — abriga hoje lojas de design quebequense e artesanato local.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Bonsecours: compre artesanato local de qualidade aqui — preços justos</li>
+                <li>Galerias: procure arte e litografias de artistas de Québec</li>
+                <li>Almoço na área: L'Original (frutos do mar), Boris Bistro, ou qualquer terraço</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#00897b)">
+            <img src="https://source.unsplash.com/800x500/?montreal,old+port,ferris+wheel,river" alt="Vieux-Port" onerror="this.style.display='none'">
+            <span class="type-badge">🎡 Porto</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 14:30 — 16:30</div>
+            <h4 class="card-name">Vieux-Port & La Grande Roue</h4>
+            <p class="card-desc">O Porto Velho transformado em espaço de lazer à beira do Rio Saint-Laurent. La Grande Roue — roda gigante de 60 metros com cabines climatizadas — oferece a vista mais completa de Vieux-Montréal, do rio e das pontes que nenhum pé no chão consegue. Uma das melhores perspectivas da cidade.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>La Grande Roue: ~$25 CAD/pessoa — compre online para desconto</li>
+                <li>Calçadão do porto: gratuito e muito agradável para caminhar</li>
+                <li>Observem o Silo 5 e as velhas instalações industriais reconvertidas</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">La Grande Roue: ~$25 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#880e4f,#c2185b)">
+            <img src="https://source.unsplash.com/800x500/?montreal,fine+dining,restaurant,bistro" alt="Joe Beef" onerror="this.style.display='none'">
+            <span class="type-badge">🍴 Restaurante</span>
+            <span class="reserve-badge">Reserva com Antecedência!</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:30 — 22:00</div>
+            <h4 class="card-name">Joe Beef</h4>
+            <p class="card-desc">Um dos restaurantes mais famosos do Canadá, no bairro Little Burgundy. Anthony Bourdain o visitou e declarou como um dos seus favoritos no mundo. Cardápio baseado em produtos locais de Québec, com foco em frutos do mar, charcutaria artesanal e clássicos quebequenses revisitados. Atmosfera única — parte taverna, parte salão refinado.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>RESERVA COM SEMANAS (ou meses) DE ANTECEDÊNCIA — é o restaurante mais disputado de Montreal</li>
+                <li>Peça o plateau de fruits de mer se estiver no menu</li>
+                <li>Lista de vinhos naturais é excepcional — peça sugestão do sommelier</li>
+                <li>Dress code: casual mas arrumado</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$100-150 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 20/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--montreal)">20</div>
+        <div class="day-info"><h3>Mont-Royal, Downtown & Plateau</h3><p>Quinta-feira, 20 de agosto</p></div>
+        <span class="day-tag" style="background:var(--montreal)">Dia Completo</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1b5e20,#388e3c)">
+            <img src="https://source.unsplash.com/800x500/?mont+royal,montreal,park,panoramic,view" alt="Mont Royal" onerror="this.style.display='none'">
+            <span class="type-badge">🌿 Parque</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 08:30 — 10:30</div>
+            <h4 class="card-name">Parc du Mont-Royal & Belvédère Kondiaronk</h4>
+            <p class="card-desc">O parque mais amado de Montréal, desenhado por Frederick Law Olmsted — o mesmo arquiteto do Central Park de Nova York. O mirante Kondiaronk Belvédère é o ponto com a melhor vista panorâmica da cidade: skyline, Rio Saint-Laurent, as pontes e as colinas de Longueuil ao fundo. Chegue cedo para o visual mais limpo.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Subida a pé (~40min) pela trilha ou de táxi/Uber até o cume</li>
+                <li>Chalet du Mont-Royal: café simples e vista protegida do vento — boa pausa</li>
+                <li>Lago dos Castores: agradável para caminhar ao redor</li>
+                <li>Amanhecer ou entardecer são os melhores horários para fotos</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#37474f,#546e7a)">
+            <img src="https://source.unsplash.com/800x500/?saint+joseph,oratory,montreal,basilica,dome" alt="Saint Joseph Oratory" onerror="this.style.display='none'">
+            <span class="type-badge">⛪ Basílica</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 10:30 — 12:00</div>
+            <h4 class="card-name">Oratório de Saint Joseph</h4>
+            <p class="card-desc">A maior basílica do Canadá — com a segunda maior cúpula do hemisfério ocidental (depois da Basílica de São Pedro em Roma). Localizada nas encostas do Mont-Royal, fica ao lado do parque. As escadarias íngremes e a vista de Montréal a partir da entrada são deslumbrantes. Construção iniciada em 1904 por Frère André.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Entrada gratuita (doação voluntária)</li>
+                <li>Vista do alto das escadarias: Montréal se revela no fundo</li>
+                <li>Museu do Oratório incluso na visita — acervo histórico</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#0d47a1,#1565c0)">
+            <img src="https://source.unsplash.com/800x500/?montreal,underground,city,metro,tunnel" alt="RESO Underground City" onerror="this.style.display='none'">
+            <span class="type-badge">🌐 Centro</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 14:00 — 16:30</div>
+            <h4 class="card-name">Rue Sainte-Catherine & RÉSO (Cidade Subterrânea)</h4>
+            <p class="card-desc">A Rue Sainte-Catherine é a artéria principal do comércio de Montréal. Embaixo dela, o RÉSO — a maior rede de galerias subterrâneas do mundo, com 33km! — conecta mais de 80 edifícios, incluindo shoppings, hotéis e estações de metro. Foi desenvolvida para permitir que os montrealers vivam o inverno sem casaco.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Entre pelo Metro McGill ou Metro Peel para acessar o RÉSO</li>
+                <li>Mapas do RÉSO: disponíveis nas estações de metro gratuitamente</li>
+                <li>Shopping Eaton Centre: centro da rede, ótimas opções de lojas</li>
+                <li>Almoço: food courts do RÉSO com opções variadas e econômicas</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4a148c,#7b1fa2)">
+            <img src="https://source.unsplash.com/800x500/?montreal,plateau,colorful,stairs,poutine" alt="Plateau Mont-Royal" onerror="this.style.display='none'">
+            <span class="type-badge">🍟 Bairro + Gastronomia</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 17:00 — 21:00</div>
+            <h4 class="card-name">Plateau Mont-Royal & Poutine Autêntica</h4>
+            <p class="card-desc">O bairro mais boêmio de Montréal, famoso pelas casas coloridas com escadas externas que são o ícone fotográfico da cidade. Parada obrigatória: Poutine — batatas fritas com queijo coalho (cheese curds) e molho de carne. La Banquise serve as melhores poutines de Montréal, com mais de 30 variações, e está aberta 24h.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>La Banquise (994 Rue Rachel Est): a referência absoluta de poutine</li>
+                <li>Schwartz's Deli (3895 Boul Saint-Laurent): smoked meat sandwich histórico desde 1928</li>
+                <li>Le Club Chasse et Pêche: restaurante refinado na Old Montreal (reserva)</li>
+                <li>Parc La Fontaine: passeio lindo na área ao entardecer</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Poutine: ~$15-20 CAD</span>
+              <span class="card-duration">⏱ 3-4h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 21/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--montreal)">21</div>
+        <div class="day-info"><h3>Mile End, Biodôme & Jean-Talon</h3><p>Sexta-feira, 21 de agosto</p></div>
+        <span class="day-tag" style="background:var(--montreal)">Dia Completo</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#e65100,#f57c00)">
+            <img src="https://source.unsplash.com/800x500/?montreal,mile+end,bagel,cafe,bakery" alt="Mile End" onerror="this.style.display='none'">
+            <span class="type-badge">🥯 Bairro</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 11:00</div>
+            <h4 class="card-name">Mile End — Bagels & Cultura</h4>
+            <p class="card-desc">O bairro mais criativo de Montréal, com influências judaica, grega e italiana. A grande rivalidade gastronômica da cidade acontece aqui: Fairmount Bagel (1919) vs. St-Viateur Bagel — ambas assam no forno a lenha 24h. O bagel de Montréal é mais doce, menor e mais denso que o de Nova York, cozido em água com mel antes de ir ao forno.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Fairmount Bagel (74 Ave Fairmount O): o original e o mais histórico</li>
+                <li>St-Viateur (263 Ave St-Viateur O): o rival — peça com salmão e cream cheese</li>
+                <li>Café Olimpico: clássico do bairro para acompanhar o bagel</li>
+                <li>Murais urbanos: bairro tem arte de rua em cada esquina</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$20 CAD por casal</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1b5e20,#388e3c)">
+            <img src="https://source.unsplash.com/800x500/?jean+talon,market,montreal,vegetables,food" alt="Jean-Talon Market" onerror="this.style.display='none'">
+            <span class="type-badge">🛒 Mercado</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:00 — 13:00</div>
+            <h4 class="card-name">Mercado Jean-Talon</h4>
+            <p class="card-desc">O maior mercado público ao ar livre do Canadá, no coração de Little Italy. Em agosto a safra de verão de Québec está no auge — frutas, vegetais coloridos, queijos artesanais, mel, xarope de bordo, charcutaria e flores. Um espetáculo de cores, cheiros e sabores que representa o melhor da produção local.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Maple syrup: compre aqui com qualidade garantida e preço melhor que souvenirs</li>
+                <li>Queijo Oka e Délice de l'Érablière: clássicos quebequenses que você não encontra no Brasil</li>
+                <li>Traga sacolas — muita coisa boa para levar!</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a5276,#117a65)">
+            <img src="https://source.unsplash.com/800x500/?biodome,montreal,tropical,forest,animals" alt="Biodome Montreal" onerror="this.style.display='none'">
+            <span class="type-badge">🌿 Ciência</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 13:30 — 16:30</div>
+            <h4 class="card-name">Espace pour la Vie — Biodôme + Jardim Botânico</h4>
+            <p class="card-desc">Dentro da estrutura do velódromo dos Jogos Olímpicos de 1976, o Biodôme recria 5 ecossistemas naturais das Américas: Floresta Tropical, Floresta de Maple, Golfo de St. Lawrence, Ilhas Sub-Antárticas e Ártico. O Jardim Botânico ao lado tem 22.000 espécies — especialmente o Jardim Japonês e Jardim Chinês são extraordinários.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Combo Biodôme + Jardim Botânico: mais econômico que ingressos separados</li>
+                <li>Pinguins sub-antárticos: o destaque mais fotografado do Biodôme</li>
+                <li>Jardim Botânico: reserve ao menos 1h extra se forem até lá</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$22 CAD/pessoa (Biodôme)</span>
+              <span class="card-duration">⏱ 3h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#00897b)">
+            <img src="https://source.unsplash.com/800x500/?montreal,biosphere,jean+drapeau,island,dome" alt="Parc Jean-Drapeau" onerror="this.style.display='none'">
+            <span class="type-badge">🌍 Parque</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 17:30 — 19:30</div>
+            <h4 class="card-name">Parc Jean-Drapeau & Biosfera</h4>
+            <p class="card-desc">Ilha no Rio Saint-Laurent acessível de Metro. A Biosfera — domo geodésico de alumínio projetado por Buckminster Fuller para a Expo 1967 — é um museu interativo do meio ambiente. O Circuito Gilles Villeneuve (F1) contorna a ilha. Vista das pontes e do skyline de Montréal ao fim da tarde é extraordinária.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Metro Jean-Drapeau (linha amarela): direto para a ilha</li>
+                <li>Biosfera: ~$22 CAD/pessoa, museu interativo bem feito</li>
+                <li>Bicicleta: aluguel na ilha para a volta pelo circuito de F1</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Metro $3.75 CAD / Biosfera $22 CAD</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 22/08 — DIA EXTRA -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:#d97706">22</div>
+        <div class="day-info"><h3>Dia Extra em Montréal ⭐</h3><p>Sábado, 22 de agosto</p></div>
+        <span class="day-tag" style="background:#d97706">Novo!</span>
+      </div>
+      <div class="alert alert-success">
+        <span class="alert-icon">✈️</span>
+        <div class="alert-text">
+          <strong>Dia não previsto no roteiro original — presente do voo!</strong>
+          O voo para Vancouver foi alterado para 23/08, deixando este sábado completamente livre em Montréal. Sábado é um dos melhores dias da semana na cidade — mercados, eventos, bares animados.
+        </div>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#e65100,#bf360c)">
+            <img src="https://source.unsplash.com/800x500/?atwater,market,montreal,artisanal,cheese" alt="Marché Atwater" onerror="this.style.display='none'">
+            <span class="type-badge">🛒 Mercado</span>
+            <span class="new-badge">⭐ Dia Extra</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 11:00</div>
+            <h4 class="card-name">Marché Atwater</h4>
+            <p class="card-desc">O mercado mais belo de Montréal, em prédio art déco de 1933. Mais íntimo e refinado que o Jean-Talon — excelente para queijos artesanais locais, vinhos naturais do Québec, charcutaria fina e produtos orgânicos. Os sábados são o dia mais movimentado, com produtores chegando direto das fazendas. Fica ao lado do Canal de Lachine — perfeito para combinar.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Fromagerie du Marché Atwater: os melhores queijos quebequenses da cidade</li>
+                <li>Padaria Au Pain Doré: croissants e pains au chocolat frescos de manhã</li>
+                <li>Vinhos: procure produtores de Québec — raridade fora do Canadá</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1565c0,#1976d2)">
+            <img src="https://source.unsplash.com/800x500/?lachine,canal,montreal,bike,cycling" alt="Canal de Lachine" onerror="this.style.display='none'">
+            <span class="type-badge">🚴 Ciclovia</span>
+            <span class="new-badge">⭐ Dia Extra</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:00 — 14:00</div>
+            <h4 class="card-name">Canal de Lachine</h4>
+            <p class="card-desc">Canal histórico de 14km inaugurado em 1825, hoje com uma das ciclovias mais agradáveis de Montréal ao longo das margens. Em agosto a orla é tomada por moradores em bicicleta, caiaque e caminhada. Paisagem de pontes históricas, antigas fábricas reconvertidas em apartamentos e o skyline da cidade ao fundo.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Aluguel de bikes: Ça Roule Montréal em frente ao Marché Atwater</li>
+                <li>Percurso fácil: Atwater até o Vieux-Port (5km) ou mais longe</li>
+                <li>Almoço no Vieux-Port: encerrar o passeio com vista para o rio</li>
+                <li>Caiaque: aluguel na empresa H2O Adventures no canal</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Bike: ~$25-35 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4a148c,#6a1b9a)">
+            <img src="https://source.unsplash.com/800x500/?amusement+park,roller+coaster,ferris+wheel" alt="La Ronde" onerror="this.style.display='none'">
+            <span class="type-badge">🎢 Diversão</span>
+            <span class="new-badge">⭐ Dia Extra</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 14:00 — 19:00</div>
+            <h4 class="card-name">La Ronde — Parque de Diversões (opção)</h4>
+            <p class="card-desc">Parque de diversões no Parc Jean-Drapeau, parte da rede Six Flags. Montanhas-russas emocionantes com vista incrível de Montréal e do Rio Saint-Laurent. Os sábados de agosto têm fogos de artifício noturnos especiais — o Festival International de Feux Loto-Québec acontece aos sábados e é um espetáculo único.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Compre online para desconto — evita fila longa na bilheteria</li>
+                <li>Fogos de artifício de sábado às 22h: espetáculo de 30min sobre o rio</li>
+                <li>Voo amanhã às 08:30 — planeje voltar para o hotel antes das 21h</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$50 CAD/pessoa</span>
+              <span class="card-duration">⏱ 4-5h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a0a00,#2d1200)">
+            <img src="https://source.unsplash.com/800x500/?montreal,bistro,french,dinner,wine" alt="Jantar despedida Montreal" onerror="this.style.display='none'">
+            <span class="type-badge">🍷 Jantar</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:00 — 21:00</div>
+            <h4 class="card-name">Jantar de Despedida de Montréal</h4>
+            <p class="card-desc">Último jantar em Montréal antes do voo cedo para Vancouver! Sugestões: L'Express no Plateau (bistrô francês clássico desde 1980, sem reserva, fila rápida), Toqué! (gastronômico, ingredientes do Québec) ou Le Vin Papillon (wine bar da equipe do Joe Beef, mais casual). Dorme cedo — voo às 08:30!</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>VÔEM AMANHÃ ÀS 08:30 — jantem leve, preparem as malas esta noite!</li>
+                <li>Check-in no aeroporto YUL: chegue às 06:30 no mínimo</li>
+                <li>L'Express (3927 Rue Saint-Denis): clássico, sem reserva, vai direta</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$60-100 CAD por casal</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     VANCOUVER
+════════════════════════════════════════════════════ -->
+<section id="vancouver" class="city-section">
+  <div class="city-header vancouver-color">
+    <div class="city-header-bg" style="background-image:url('https://source.unsplash.com/1600x600/?vancouver,mountains,ocean,skyline')"></div>
+    <div class="city-header-content">
+      <h2>Vancouver</h2>
+      <p>23 a 26 de agosto · 4 dias · British Columbia, Canadá</p>
+    </div>
+  </div>
+
+  <div class="city-content">
+
+    <div class="transport-card">
+      <div class="transport-icon">✈️</div>
+      <div class="transport-info">
+        <div class="transport-route">YUL Montréal → YVR Vancouver</div>
+        <div class="transport-details">Air Canada · Business Class · Direto · 5h · 2 malas despachadas</div>
+      </div>
+      <div class="transport-time">
+        <div class="transport-depart">23/08 · 08:30</div>
+        <div class="transport-arrive">Chegada 23/08 · 10:30</div>
+      </div>
+    </div>
+
+    <div class="alert alert-warning">
+      <span class="alert-icon">⏰</span>
+      <div class="alert-text">
+        <strong>Chegada às 10:30 — primeiro dia começa na tarde</strong>
+        Vancouver é UTC-7 (PDT), 3h a menos que Montréal. Após desembarque e transfer, chegam ao hotel por volta das 12h. Primeiro dia mais leve — aproveitamos a tarde e noite com atividades próximas do centro.
+      </div>
+    </div>
+
+    <!-- 23/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--vancouver)">23</div>
+        <div class="day-info"><h3>Chegada — Granville Island & Gastown</h3><p>Domingo, 23 de agosto</p></div>
+        <span class="day-tag" style="background:var(--vancouver)">Chegada</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1b5e20,#2e7d32)">
+            <img src="https://source.unsplash.com/800x500/?granville+island,vancouver,public+market,food" alt="Granville Island" onerror="this.style.display='none'">
+            <span class="type-badge">🛒 Mercado</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 13:00 — 15:30</div>
+            <h4 class="card-name">Granville Island Public Market</h4>
+            <p class="card-desc">O ponto de partida perfeito para o primeiro contato com Vancouver. Mercado público coberto debaixo da Ponte Granville, com produtores locais de BC, food stands de múltiplas culinárias e artesãos. O ambiente vibrante e a vista para False Creek e o Downtown ao fundo dão boas-vindas à cidade mais bela do Canadá.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Almoço: Oyama Sausage (charcutaria), Lee's Donuts, Go Fish (frutos do mar no exterior)</li>
+                <li>Aquabus (pequena balsa): sai daqui para o centro e outros pontos — cute!</li>
+                <li>Domingo animado — boa energia de chegada à cidade</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#263238,#37474f)">
+            <img src="https://source.unsplash.com/800x500/?gastown,vancouver,steam+clock,historic,street" alt="Gastown" onerror="this.style.display='none'">
+            <span class="type-badge">🕰️ Histórico</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 16:00 — 17:30</div>
+            <h4 class="card-name">Gastown & Steam Clock</h4>
+            <p class="card-desc">O bairro mais antigo de Vancouver, fundado em 1867. A estrela do bairro é o famoso Steam Clock na esquina de Water St e Cambie — o relógio a vapor apita a cada 15 minutos e emite um jato de vapor que todos param para fotografar. Ruas de pedra, galerias de arte nativa, restaurantes de alta gastronomia e um charme único.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Fique perto do relógio exatamente nos :00, :15, :30 e :45 para ver o vapor</li>
+                <li>Blood Alley: o beco histórico ao lado é muito fotogênico</li>
+                <li>Guilt & Co.: bar ao vivo subterrâneo — ótimo para uma bebida à noite</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#00695c)">
+            <img src="https://source.unsplash.com/800x500/?coal+harbour,vancouver,waterfront,mountains" alt="Coal Harbour" onerror="this.style.display='none'">
+            <span class="type-badge">🌅 Beira-Mar</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 18:00 — 19:30</div>
+            <h4 class="card-name">Coal Harbour & Canada Place</h4>
+            <p class="card-desc">O cartão postal de Vancouver: a orla de Coal Harbour com o Canada Place em forma de velas brancas, hidroaviões decolando, e as montanhas nevadas de North Shore ao fundo. Uma caminhada pela seawall desta área no pôr do sol (~20h30 em agosto) é um dos momentos mais memoráveis de toda a viagem.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Vancouver Lookout (torre de observação central): vista 360° ~$20 CAD</li>
+                <li>Hidroaviões: decolam do Coal Harbour constantemente — espetáculo único</li>
+                <li>FlyOver Canada fica no Canada Place — pode reservar para amanhã</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (orla)</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#b71c1c,#d32f2f)">
+            <img src="https://source.unsplash.com/800x500/?japanese+restaurant,sushi,fine+dining,harbor" alt="Miku Vancouver" onerror="this.style.display='none'">
+            <span class="type-badge">🍣 Jantar</span>
+            <span class="reserve-badge">Reserva Necessária</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 20:00 — 22:00</div>
+            <h4 class="card-name">Miku Vancouver</h4>
+            <p class="card-desc">Um dos restaurantes mais renomados de Vancouver. Especializado em sushi Aburi — estilo japonês onde o peixe é suavemente flambado com maçarico, criando uma camada de textura única e sabor caramelizado impossível de conseguir cru. Vista deslumbrante para o Coal Harbour. Considerado por muitos o melhor jantar de Vancouver.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>RESERVA OBRIGATÓRIA — faça semanas antes pelo mikurestaurant.com</li>
+                <li>Aburi Oshi (prensado e flambado) é o prato-símbolo da casa — obrigatório</li>
+                <li>Chegue antes para um drinque no bar com a melhor vista do porto</li>
+                <li>Peça omakase se disponível — deixe nas mãos do chef</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$80-120 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 24/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--vancouver)">24</div>
+        <div class="day-info"><h3>Stanley Park, Aquarium & Cervejaria</h3><p>Segunda-feira, 24 de agosto</p></div>
+        <span class="day-tag" style="background:var(--vancouver)">Dia Completo</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1b5e20,#388e3c)">
+            <img src="https://source.unsplash.com/800x500/?stanley+park,vancouver,seawall,cycling,mountains" alt="Stanley Park" onerror="this.style.display='none'">
+            <span class="type-badge">🌲 Parque</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 08:00 — 11:30</div>
+            <h4 class="card-name">Stanley Park & Seawall</h4>
+            <p class="card-desc">Um dos maiores parques urbanos da América do Norte — 405 hectares de floresta temperada centenária a metros do Downtown. O Seawall (calçadão de 9km) contorna o parque à beira-mar com vistas para as montanhas, North Vancouver e a Lions Gate Bridge. De bicicleta leva ~1h30 — a melhor forma de ver tudo.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Aluguel de bikes: início da Coal Harbour (~$30 CAD/hora por bike)</li>
+                <li>Totens indígenas: estão no Brockton Point, 2km da entrada — obrigatório</li>
+                <li>Prospect Point: a melhor vista da Lions Gate Bridge do parque</li>
+                <li>Segunda-feira cedo: bem menos movimento que fim de semana</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Bike: ~$60-80 CAD (casal, 2h)</span>
+              <span class="card-duration">⏱ 3h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#00838f)">
+            <img src="https://source.unsplash.com/800x500/?vancouver,aquarium,beluga,whale,sea+otter" alt="Vancouver Aquarium" onerror="this.style.display='none'">
+            <span class="type-badge">🐳 Aquário</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:30 — 13:30</div>
+            <h4 class="card-name">Vancouver Aquarium</h4>
+            <p class="card-desc">Dentro do Stanley Park, foca nas espécies do Pacífico Norte. Lontras marinhas brincalhonas, baleias beluga e focas são os destaques. O touch pool permite tocar estrelas-do-mar e anêmonas. A galeria de águas-vivas — espécies de todos os tamanhos em tanques iluminados — é hipnotizante e muito fotogênica.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Compre ingressos online — desconto e sem filas</li>
+                <li>Horários dos shows de lontras: verifique na entrada ao chegar</li>
+                <li>Jellyfish gallery: área mais instagramável do aquário</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$42 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4e342e,#6d4c41)">
+            <img src="https://source.unsplash.com/800x500/?craft,beer,brewery,tap+room,vancouver" alt="Brassneck Brewery" onerror="this.style.display='none'">
+            <span class="type-badge">🍺 Cervejaria</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 16:00 — 18:00</div>
+            <h4 class="card-name">Brassneck Brewery</h4>
+            <p class="card-desc">A cervejaria artesanal mais querida de Vancouver, no bairro Mount Pleasant. Especializada em cervejas experimentais e sazonais que mudam a cada visita — cada batch é diferente. Ambiente casual e de bairro, frequentada por moradores locais. Sem reservas — segunda-feira é tranquilo, boa hora para visitar.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Peça o tasting flight para experimentar vários estilos ao mesmo tempo</li>
+                <li>Não serve comida própria — peça delivery ou vá a outro lugar depois</li>
+                <li>2148 Main St — bairro Main Street, cheio de cafés e restaurantes interessantes</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$20-30 CAD/pessoa</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a237e,#283593)">
+            <img src="https://source.unsplash.com/800x500/?robson+street,vancouver,shopping,city" alt="Robson Street" onerror="this.style.display='none'">
+            <span class="type-badge">🛍️ Compras & Jantar</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 18:30 — 21:00</div>
+            <h4 class="card-name">Robson Street & English Bay</h4>
+            <p class="card-desc">A rua mais movimentada de Vancouver para compras e vida noturna. Marcas internacionais, lojas canadenses e restaurantes de todos os tipos. Siga caminhando até o English Bay Beach — a praia mais próxima do centro, com vista para as ilhas e o pôr do sol sobre o Oceano Pacífico (um dos mais bonitos do mundo).</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Jantar na Robson: Kintaro Ramen (fila mas vale), sushi ou hamburguer</li>
+                <li>English Bay: caminhar até a praia e ver o pôr do sol (~20h30)</li>
+                <li>MEC (Mountain Equipment Co-op): equipamentos outdoor — grande loja canadense</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h30</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 25/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--vancouver)">25</div>
+        <div class="day-info"><h3>Capilano + Whistler ou Grouse Mountain</h3><p>Terça-feira, 25 de agosto</p></div>
+        <span class="day-tag" style="background:var(--vancouver)">Aventura</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1b5e20,#388e3c)">
+            <img src="https://source.unsplash.com/800x500/?capilano,suspension+bridge,rainforest,vancouver" alt="Capilano Bridge" onerror="this.style.display='none'">
+            <span class="type-badge">🌉 Natureza</span>
+            <span class="reserve-badge">Ingresso Online</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 08:30 — 11:00</div>
+            <h4 class="card-name">Capilano Suspension Bridge</h4>
+            <p class="card-desc">Ponte suspensa de 137m de comprimento, 70m acima do Rio Capilano, no meio de uma floresta de cedros e abetos centenários. O Treetops Adventure (passarelas entre as copas das árvores a 30m de altura) e o Cliffwalk (passarela de vidro e aço na rocha) completam a experiência. Uma das mais visitadas de BC — cheguem cedo!</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>CHEGUE CEDO — abertura às 8h, multidões chegam às 10h</li>
+                <li>Shuttle gratuito a partir do Canada Place no centro de Vancouver</li>
+                <li>Desconto depois das 17h se comprarem online — opção para voltar à tarde</li>
+                <li>Lynn Canyon Park (15min de carro): alternativa gratuita mais tranquila</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$68 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#004d40,#00695c)">
+            <img src="https://source.unsplash.com/800x500/?lynn+canyon,bridge,forest,trail,free" alt="Lynn Canyon" onerror="this.style.display='none'">
+            <span class="type-badge">🌿 Parque Gratuito</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ (logo após a Capilano)</div>
+            <h4 class="card-name">Lynn Canyon Park</h4>
+            <p class="card-desc">A alternativa gratuita e muito menos lotada à Capilano. Lynn Canyon tem sua própria ponte suspensa, trilhas belas pela floresta temperada e o famoso 30 Foot Pool — uma poça natural de água cristalina onde se pode nadar no verão. Ambiente mais selvagem e autêntico, adorado pelos moradores locais.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Completamente gratuito — raridade entre parques canadenses</li>
+                <li>30 Pool: refrescante mergulho em agosto — leve roupa de banho</li>
+                <li>Trilha Twin Falls: 30min, muito bonita e de nível fácil</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#0d47a1,#1565c0)">
+            <img src="https://source.unsplash.com/800x500/?whistler,mountain,gondola,summer,canada" alt="Whistler" onerror="this.style.display='none'">
+            <span class="type-badge">⛰️ Excursão</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 12:00 — 18:00</div>
+            <h4 class="card-name">Whistler — Day Trip ⭐ (Opção Principal)</h4>
+            <p class="card-desc">A estação de ski mais famosa da América do Norte fica a 120km de Vancouver pela célebre Sea-to-Sky Highway — eleita uma das estradas mais belas do mundo. No verão, Whistler oferece o Peak 2 Peak Gondola (maior teleférico do mundo, piso de vidro), mountain biking, trilhas e a charmosa Whistler Village para almoço.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Sea-to-Sky Hwy: pare obrigatoriamente em Shannon Falls e em Squamish (Stawamus Chief) para fotos</li>
+                <li>Peak 2 Peak Gondola: ~$80 CAD — compre online com antecedência</li>
+                <li>Whistler Village: almoço, cafés e lojas no charming village</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gondola: ~$80 CAD/pessoa</span>
+              <span class="card-duration">⏱ 6h (ida e volta)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#004d40,#006064)">
+            <img src="https://source.unsplash.com/800x500/?grouse+mountain,vancouver,gondola,skyride,view" alt="Grouse Mountain" onerror="this.style.display='none'">
+            <span class="type-badge">🚡 Montanha</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ (alternativa ao Whistler)</div>
+            <h4 class="card-name">Grouse Mountain — Alternativa ao Whistler</h4>
+            <p class="card-desc">A "montanha de Vancouver" fica a 15 minutos de carro do centro. O teleférico Skyride sobe 1.100m com vista panorâmica de Vancouver e do Oceano Pacífico. No topo: ursos grizzly em recinto natural, shows de lenhadores canadenses, chair lift adicional e trilhas para todos os níveis. À noite as luzes da cidade são magnificas.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Skyride: ~$65 CAD/pessoa (inclui atrações do topo)</li>
+                <li>Ônibus 236 do centro de Vancouver até a base — acesso sem carro</li>
+                <li>Grouse Grind: trilha de subida a pé (~2h) para os mais corajosos</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$65 CAD/pessoa</span>
+              <span class="card-duration">⏱ 3-4h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 26/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--vancouver)">26</div>
+        <div class="day-info"><h3>FlyOver, UBC & Kitsilano</h3><p>Quarta-feira, 26 de agosto</p></div>
+        <span class="day-tag" style="background:var(--vancouver)">Último Dia</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a237e,#0d47a1)">
+            <img src="https://source.unsplash.com/800x500/?flyover,canada,flight,simulation,immersive" alt="FlyOver Canada" onerror="this.style.display='none'">
+            <span class="type-badge">✈️ Imersivo</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 10:30</div>
+            <h4 class="card-name">FlyOver Canada</h4>
+            <p class="card-desc">Simulador de voo cinematográfico e totalmente imersivo — as cadeiras movem-se, vento sopra no rosto, névoa e aromas criam a ilusão completa de sobrevoar o Canadá. Das Montanhas Rochosas à Costa do Atlântico, o filme 4D dura ~25 minutos mas a experiência fica. Localizado no Canada Place.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Compre online para economizar (~$55 CAD vs $68 na bilheteria)</li>
+                <li>Não recomendado para quem tem enjoo em movimento</li>
+                <li>Canada Place: caminhe pela área antes ou depois — vista do porto</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$55-68 CAD/pessoa</span>
+              <span class="card-duration">⏱ 1h (com filas)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#37474f,#546e7a)">
+            <img src="https://source.unsplash.com/800x500/?museum+anthropology,ubc,totem,indigenous,art" alt="Museu Antropologia" onerror="this.style.display='none'">
+            <span class="type-badge">🏛️ Museu</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:00 — 13:30</div>
+            <h4 class="card-name">Museu de Antropologia da UBC</h4>
+            <p class="card-desc">Um dos melhores museus sobre culturas indígenas do mundo, no campus da UBC com vista para as montanhas. A coleção de totens, máscaras cerimoniais e artefatos das Primeiras Nações do Pacífico Norte é absolutamente impressionante. O edifício em si, projetado por Arthur Erickson, é uma obra arquitetônica inspirada em estruturas indígenas.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>~$20 CAD/pessoa — um dos museus mais impressionantes do Canadá</li>
+                <li>Great Hall: sala central com totens de 12m — de tirar o fôlego</li>
+                <li>Campus da UBC: vista para o Pacífico e as montanhas de Whistler ao fundo</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$20 CAD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#00838f)">
+            <img src="https://source.unsplash.com/800x500/?kitsilano,beach,vancouver,mountains,pacific" alt="Kitsilano Beach" onerror="this.style.display='none'">
+            <span class="type-badge">🏖️ Praia</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 14:00 — 17:00</div>
+            <h4 class="card-name">Kitsilano Beach</h4>
+            <p class="card-desc">A praia mais icônica de Vancouver, com a peculiaridade única de ter montanhas nevadas ao fundo e o skyline do Downtown ao leste. Kits Pool — a maior piscina de água salgada ao ar livre do Canadá — complementa a orla. Frequentada por moradores locais, tem uma atmosfera relaxada e genuinamente vancouverita.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Kits Pool: piscina de água salgada, aberta no verão — ótima para nadar</li>
+                <li>Cafés na Cornwall Ave: Aphrodite's Café, Tim Hortons, etc.</li>
+                <li>Vista do pôr do sol das Ilhas (Gulf Islands) ao oeste — deslumbrante</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 2-3h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a0a00,#3d1a00)">
+            <img src="https://source.unsplash.com/800x500/?vancouver,farewell,dinner,restaurant,harbour" alt="Jantar Vancouver" onerror="this.style.display='none'">
+            <span class="type-badge">🍷 Jantar de Despedida</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:00 — 21:30</div>
+            <h4 class="card-name">Jantar Final em Vancouver</h4>
+            <p class="card-desc">Voo às 23:45 — há tempo para um jantar especial. Sugestões: The Botanist no Fairmont Pacific Rim (vista para o porto, moderno), L'Abattoir em Gastown (farm-to-table excepcional), ou Hawksworth Restaurant (fine dining clássico). Deixem as malas prontas no hotel antes de ir jantar.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Check-in no YVR: recomendado estar no aeroporto às 21h</li>
+                <li>Canada Line (metro): 25min do centro até o aeroporto YVR — rápido e barato</li>
+                <li>L'Abattoir (Gastown): reserva recomendada — excelente custo-benefício</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$80-150 CAD por casal</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     CHICAGO
+════════════════════════════════════════════════════ -->
+<section id="chicago" class="city-section">
+  <div class="city-header chicago-color">
+    <div class="city-header-bg" style="background-image:url('https://source.unsplash.com/1600x600/?chicago,skyline,lake+michigan,night')"></div>
+    <div class="city-header-content">
+      <h2>Chicago</h2>
+      <p>27 a 30 de agosto · 4 noites · Illinois, EUA</p>
+    </div>
+  </div>
+
+  <div class="city-content">
+
+    <div class="transport-card">
+      <div class="transport-icon">✈️</div>
+      <div class="transport-info">
+        <div class="transport-route">YVR Vancouver → ORD Chicago O'Hare</div>
+        <div class="transport-details">American Airlines AA1305 · Airbus A321 · Business Class · 4h · 4 malas despachadas</div>
+      </div>
+      <div class="transport-time">
+        <div class="transport-depart">27/08 · 23:45</div>
+        <div class="transport-arrive">Chegada 28/08 · 05:54</div>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="alert-icon">🌙</span>
+      <div class="alert-text">
+        <strong>Chegada às 05:54 de 28/08 (madrugada)</strong>
+        Chicago é UTC-5 (CDT) — 2h a menos que Vancouver. Após desembarque, transfer para o hotel e café da manhã, planejamos o primeiro dia com início mais leve às 11h.
+      </div>
+    </div>
+
+    <!-- 28/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--chicago)">28</div>
+        <div class="day-info"><h3>Millennium Park, Art Institute & Riverwalk</h3><p>Sexta-feira, 28 de agosto</p></div>
+        <span class="day-tag" style="background:var(--chicago)">Primeiro Dia</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1F2D6E,#2a3d8e)">
+            <img src="https://source.unsplash.com/800x500/?millennium+park,chicago,bean,cloud+gate,sculpture" alt="Millennium Park" onerror="this.style.display='none'">
+            <span class="type-badge">🫘 Ícone</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:00 — 13:00</div>
+            <h4 class="card-name">Millennium Park — The Bean</h4>
+            <p class="card-desc">O parque mais visitado de Chicago, com a escultura Cloud Gate (apelidada "The Bean") de Anish Kapoor — superfície espelhada que distorce e reflete o skyline de Chicago de forma surreal. A Crown Fountain projeta rostos de moradores em torres de vidro. O Jay Pritzker Pavilion (Frank Gehry) recebe shows gratuitos no verão.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>The Bean: chegue cedo ou ao entardecer para fotos sem multidão</li>
+                <li>Crown Fountain: crianças adoram se molhar no jato de água no verão</li>
+                <li>Shows gratuitos no Pritzker: verifique agenda no site do parque</li>
+                <li>Tudo gratuito — um dos melhores parques urbanos do mundo</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4a0080,#7b1fa2)">
+            <img src="https://source.unsplash.com/800x500/?art+institute+chicago,museum,impressionism" alt="Art Institute" onerror="this.style.display='none'">
+            <span class="type-badge">🎨 Museu</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 13:30 — 16:30</div>
+            <h4 class="card-name">Art Institute of Chicago</h4>
+            <p class="card-desc">Um dos melhores museus de arte dos EUA, com uma coleção impressionista de nível mundial — Seurat, Monet, Renoir, Picasso, Chagall. A obra mais famosa: "Um Domingo de Tarde na Grande Jatte" de Georges Seurat. A ala de arte americana (Grant Wood, Edward Hopper, Georgia O'Keeffe) é igualmente extraordinária.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Compre ingressos online — evita fila e é ligeiramente mais barato</li>
+                <li>Não tente ver tudo: foque no Impressionismo e na ala americana</li>
+                <li>Audio guide: disponível no app do museu, gratuito</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$35 USD/pessoa</span>
+              <span class="card-duration">⏱ 2-3h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1565c0,#1976d2)">
+            <img src="https://source.unsplash.com/800x500/?chicago,riverwalk,river,skyscrapers,walk" alt="Riverwalk" onerror="this.style.display='none'">
+            <span class="type-badge">🌊 Urbano</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 17:00 — 19:00</div>
+            <h4 class="card-name">Chicago Riverwalk</h4>
+            <p class="card-desc">O calçadão de 3km às margens do Chicago River no downtown, com bares flutuantes, restaurantes na beira d'água e jardins suspensos. A vista das torres históricas e modernas refletidas no rio verde-esmeralda é o cartão postal mais icônico de Chicago. É também daqui que partem os passeios de barco de arquitetura.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Billy Goat Tavern: bar histórico sob a rua (Tribune Tower side) — frequentado por jornalistas desde 1934</li>
+                <li>Chicago Architecture Center: fica na beira do rio — passe para ver exposições gratuitas</li>
+                <li>Aperte um cold brew na beira do rio antes do jantar</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#b71c1c,#d32f2f)">
+            <img src="https://source.unsplash.com/800x500/?deep+dish+pizza,chicago,lou+malnati" alt="Deep Dish Pizza" onerror="this.style.display='none'">
+            <span class="type-badge">🍕 Gastronomia</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:30 — 21:00</div>
+            <h4 class="card-name">Deep Dish Pizza — Lou Malnati's</h4>
+            <p class="card-desc">A experiência gastronômica mais icônica de Chicago. A Deep Dish é completamente diferente de qualquer pizza que conhecem — espessa como uma torta, com queijo na base, cobertura generosa de ingredientes e molho de tomate chunky por cima. Lou Malnati's é o endereço mais tradicional, fundado em 1971, com unidade na Michigan Avenue.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>A pizza demora ~45min para sair do forno — peça logo ao sentar</li>
+                <li>Giordano's: o rival clássico, estilo "stuffed pizza" (ainda mais recheada)</li>
+                <li>Peça a Butter Crust com Italian Sausage — a combinação clássica</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$40-60 USD por casal</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+            <img src="https://source.unsplash.com/800x500/?willis+tower,skydeck,chicago,night,view" alt="Skydeck" onerror="this.style.display='none'">
+            <span class="type-badge">🌆 Mirante</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 21:30 — 23:00</div>
+            <h4 class="card-name">Skydeck — Willis Tower</h4>
+            <p class="card-desc">O edifício mais alto de Chicago (443m, 108 andares). The Ledge — caixas de vidro que avançam 1,3m para fora do edifício a 412m de altura — dão a sensação eletrizante de estar flutuando sobre a cidade. A vista noturna de Chicago com o Lake Michigan e os subúrbios ao fundo é absolutamente cinematográfica.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Compre ingressos online — evita filas imensas, especialmente à noite</li>
+                <li>À noite as luzes da cidade são ainda mais impressionantes que de dia</li>
+                <li>CityPASS Chicago: inclui Skydeck + vários outros com desconto</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$32 USD/pessoa</span>
+              <span class="card-duration">⏱ 1h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 29/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--chicago)">29</div>
+        <div class="day-info"><h3>Architecture Tour, Museum Campus & Magnificent Mile</h3><p>Sábado, 29 de agosto</p></div>
+        <span class="day-tag" style="background:var(--chicago)">Dia Completo</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1565c0,#0d47a1)">
+            <img src="https://source.unsplash.com/800x500/?chicago,architecture,river+tour,boat,skyscrapers" alt="Architecture River Tour" onerror="this.style.display='none'">
+            <span class="type-badge">⛵ Tour</span>
+            <span class="reserve-badge">Reserva Online</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 11:00</div>
+            <h4 class="card-name">Architecture River Tour ⭐ ESSENCIAL</h4>
+            <p class="card-desc">O passeio de barco pelo Chicago River narrado por guias arquitetos é absolutamente OBRIGATÓRIO. Chicago foi a cidade que inventou o arranha-céu (1885) e tem a melhor coleção de arquitetura do século XX dos EUA. A perspectiva pelo rio revela detalhes de edifícios impossíveis de ver a pé — Sullivan, Mies van der Rohe, SOM, Helmut Jahn.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Chicago Architecture Center: o melhor operador, guias especializados de verdade</li>
+                <li>RESERVE ONLINE COM ANTECEDÊNCIA — esgota nos sábados de agosto</li>
+                <li>Leve casaco — barco + vento do rio = frio mesmo em agosto</li>
+                <li>Sessão de manhã: melhor iluminação para fotografar os edifícios</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$50 USD/pessoa</span>
+              <span class="card-duration">⏱ 90min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#00695c)">
+            <img src="https://source.unsplash.com/800x500/?shedd+aquarium,chicago,dolphin,beluga" alt="Museum Campus" onerror="this.style.display='none'">
+            <span class="type-badge">🐬 Museu</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 11:30 — 14:30</div>
+            <h4 class="card-name">Museum Campus — Escolham Um!</h4>
+            <p class="card-desc">O Museum Campus concentra 3 museus icônicos na orla do Lake Michigan. Escolham UM para visitar em profundidade: <strong>Shedd Aquarium</strong> (maior coberto da América do Norte — golfinhos, baleias beluga, pinguins), <strong>Field Museum</strong> (história natural, o T-Rex Sue), ou <strong>Adler Planetarium</strong> (primeiro dos EUA, vista única do lago).</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Shedd Aquarium: o mais popular — compre online para evitar fila enorme</li>
+                <li>Field Museum: para quem gosta de dinossauros e arqueologia do Egito</li>
+                <li>A caminhada entre os três pela orla do Lake Michigan já vale o passeio</li>
+                <li>CityPASS Chicago: desconto em todos os três</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$40-50 USD/pessoa por museu</span>
+              <span class="card-duration">⏱ 3h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#4e342e,#6d4c41)">
+            <img src="https://source.unsplash.com/800x500/?magnificent+mile,michigan+avenue,chicago,shopping" alt="Magnificent Mile" onerror="this.style.display='none'">
+            <span class="type-badge">🛍️ Compras</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 15:00 — 17:00</div>
+            <h4 class="card-name">Magnificent Mile — Michigan Avenue</h4>
+            <p class="card-desc">O trecho mais elegante de Michigan Avenue, com 2km de flagship stores, hotéis históricos e arquitetura impressionante. O Wrigley Building e o Tribune Tower são ícones da arquitetura de Chicago ao longo do percurso. Portillo's (100 W Ontario St) fica logo aqui — hot dogs e Italian beef sandwich históricos da cidade.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Portillo's: Italian beef sandwich e Chicago-style hot dog — obrigatório!</li>
+                <li>Chicago Water Tower: sobreviveu ao Grande Incêndio de 1871 — parede de pedra única</li>
+                <li>Marcas: Bloomingdale's, Nordstrom, Apple Store, todas as grandes marcas</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a237e,#283593)">
+            <img src="https://source.unsplash.com/800x500/?360+chicago,john+hancock,observation,lake+michigan" alt="360 Chicago" onerror="this.style.display='none'">
+            <span class="type-badge">🌆 Mirante</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 17:00 — 18:30</div>
+            <h4 class="card-name">360 CHICAGO — John Hancock Center</h4>
+            <p class="card-desc">O 94º andar do 875 N Michigan Avenue oferece a melhor vista de Chicago para o Lake Michigan — perspectiva impossível de ter no Skydeck (que fica mais ao sul). A experiência "Tilt" inclina as janelas sobre a cidade em um ângulo que dá frio na barriga. Vista diferente do Skydeck — complementar, não repetitiva.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Tilt: ~$25 USD extra mas é muito memorável</li>
+                <li>Signature Room no 96º andar: apenas para drinks — vista ainda mais alta</li>
+                <li>Exatamente na Magnificent Mile — fácil de combinar no mesmo passeio</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$30 USD/pessoa</span>
+              <span class="card-duration">⏱ 1h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#006064,#004d40)">
+            <img src="https://source.unsplash.com/800x500/?navy+pier,chicago,ferris+wheel,lake,fireworks" alt="Navy Pier" onerror="this.style.display='none'">
+            <span class="type-badge">🎡 Lazer</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:00 — 21:30</div>
+            <h4 class="card-name">Navy Pier & Centennial Wheel</h4>
+            <p class="card-desc">Pier histórico de 1km no Lake Michigan, com a icônica Centennial Wheel (roda gigante de 61m) e vista deslumbrante do skyline de Chicago ao entardecer. Restaurantes ao longo do pier e o Crystal Gardens (jardim de inverno). Nos sábados de agosto há fogos de artifício às 21h30 — imperdível!</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Centennial Wheel: ~$20 USD/pessoa — cápsulas fechadas com vista de 360°</li>
+                <li>Fogos de artifício todo sábado às 21h30 em agosto — cheguem antes das 21h para boa posição</li>
+                <li>Acesso gratuito ao pier — roda gigante é paga separado</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Roda gigante: $20 USD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 30/08 -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:var(--chicago)">30</div>
+        <div class="day-info"><h3>Lincoln Park, Wicker Park & Blues</h3><p>Domingo, 30 de agosto</p></div>
+        <span class="day-tag" style="background:var(--chicago)">Último Dia!</span>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1b5e20,#388e3c)">
+            <img src="https://source.unsplash.com/800x500/?lincoln+park+zoo,chicago,animals,free" alt="Lincoln Park Zoo" onerror="this.style.display='none'">
+            <span class="type-badge">🦁 Zoo</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 09:00 — 11:30</div>
+            <h4 class="card-name">Lincoln Park Zoo</h4>
+            <p class="card-desc">Um dos poucos zoos completamente gratuitos dos EUA, dentro do lindo Lincoln Park às margens do Lake Michigan. Mais de 1.000 animais em exposições modernas e bem cuidadas. A localização à beira do lago — com o skyline de Chicago ao fundo — faz deste zoo um dos mais cenograficamente bonitos do mundo.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Completamente gratuito — uma raridade nos EUA</li>
+                <li>Cheetahs, gorilas e o Regenstein African Journey são os destaques</li>
+                <li>Lincoln Park: caminhe até o lago após o zoo — vista espetacular do skyline</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#3e2723,#5d4037)">
+            <img src="https://source.unsplash.com/800x500/?starbucks+reserve,roastery,coffee,chicago" alt="Starbucks Reserve" onerror="this.style.display='none'">
+            <span class="type-badge">☕ Café</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 12:00 — 13:30</div>
+            <h4 class="card-name">Starbucks Reserve Roastery</h4>
+            <p class="card-desc">A maior Starbucks do mundo — completamente diferente de qualquer outra que já viram. Torrefação ao vivo de grãos com máquinas gigantes de cobre, coquetéis de café elaborados, bar de chá prêmio, padaria artesanal e decoração impressionante em 5 andares. Mais um museu do café do que uma cafeteria. Fica na Magnificent Mile.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>646 N Michigan Ave — no coração da Magnificent Mile</li>
+                <li>Peça o Barrel-Aged Cold Brew ou um cocktail de café — experiência única</li>
+                <li>Visitas guiadas pela torrefadora em horários específicos — pergunte na entrada</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$15-25 USD por pessoa</span>
+              <span class="card-duration">⏱ 1h30</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#37474f,#546e7a)">
+            <img src="https://source.unsplash.com/800x500/?wicker+park,chicago,vintage,neighborhood" alt="Wicker Park" onerror="this.style.display='none'">
+            <span class="type-badge">🎸 Bairro</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 14:00 — 17:00</div>
+            <h4 class="card-name">Wicker Park</h4>
+            <p class="card-desc">O bairro mais alternativo de Chicago — vintage shops, cafés independentes, murais urbanos e uma gastronomia diversa e criativa. Foi aqui que nasceu o rock alternativo de Chicago dos anos 90 (Smashing Pumpkins, Liz Phair). A Milwaukee Avenue é o eixo principal. Dove's Luncheonette: o melhor brunch tex-mex com playlist de soul da cidade.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Dove's Luncheonette: almoço/brunch tex-mex épico — sem reserva, fila compensa</li>
+                <li>Reckless Records: a loja de discos mais famosa de Chicago</li>
+                <li>Second Hand Tunes e Ragstock: compras vintage de qualidade</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">Gratuito (compras à parte)</span>
+              <span class="card-duration">⏱ 2-3h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a0a00,#3d1a00)">
+            <img src="https://source.unsplash.com/800x500/?bavette,steakhouse,chicago,dinner,speakeasy" alt="Bavette's Bar" onerror="this.style.display='none'">
+            <span class="type-badge">🥩 Jantar</span>
+            <span class="reserve-badge">Reserva Necessária</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 19:00 — 21:00</div>
+            <h4 class="card-name">Bavette's Bar & Boeuf</h4>
+            <p class="card-desc">O jantar de despedida perfeito. Bavette's é um steakhouse em estilo art-déco com atmosfera de speakeasy proibicionista — luzes baixas, jazz no fundo, banquetas de couro vermelho. Cortes clássicos impecáveis, frutos do mar frescos e uma lista de vinho impressionante. Um dos favoritos dos moradores de Chicago.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Reserva: faça com antecedência pelo OpenTable ou Resy</li>
+                <li>Côte de boeuf para dois: a pedida especial da noite de despedida</li>
+                <li>Ostras e tártaro de entrada — combinação perfeita antes do corte</li>
+                <li>Voo amanhã às 21:20 — aproveitem bem esta última noite!</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$80-120 USD/pessoa</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-card">
+          <div class="card-image" style="background:linear-gradient(135deg,#1a0a00,#2d1200)">
+            <img src="https://source.unsplash.com/800x500/?blues+club,chicago,live+music,guitar" alt="Buddy Guy's Legends" onerror="this.style.display='none'">
+            <span class="type-badge">🎵 Blues</span>
+          </div>
+          <div class="card-body">
+            <div class="card-time">⏰ 21:30 — 23:30</div>
+            <h4 class="card-name">Buddy Guy's Legends</h4>
+            <p class="card-desc">O blues club mais famoso de Chicago e um dos mais importantes do mundo, fundado pelo lendário guitarrista Buddy Guy. Shows ao vivo quase todas as noites — bandas de blues de alto nível, com repertório de Chicago Blues, o estilo que influenciou o rock mundial. A alma musical mais autêntica de Chicago, em um único lugar.</p>
+            <div class="card-tips">
+              <div class="card-tips-title">💡 Dicas</div>
+              <ul>
+                <li>Shows geralmente começam às 21h30-22h — cheguem às 21h para mesa perto do palco</li>
+                <li>Cover: ~$20-30 USD (compre online pelo site)</li>
+                <li>700 S Wabash Ave — Uber/taxi de volta fácil</li>
+                <li>Em janeiro o próprio Buddy Guy toca quase toda noite — outra viagem, talvez! 😊</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <span class="card-price">~$20-30 USD/pessoa (cover)</span>
+              <span class="card-duration">⏱ 2h</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 31/08 — Retorno -->
+    <div class="day-section">
+      <div class="day-header">
+        <div class="day-number" style="background:#666">31</div>
+        <div class="day-info"><h3>Retorno para o Brasil</h3><p>Segunda-feira, 31 de agosto</p></div>
+        <span class="day-tag" style="background:#666">Partida</span>
+      </div>
+
+      <div class="transport-card">
+        <div class="transport-icon">✈️</div>
+        <div class="transport-info">
+          <div class="transport-route">ORD Chicago O'Hare → GRU Guarulhos</div>
+          <div class="transport-details">United Airlines UA845 · Boeing 787-10 · Econômico · Direto · 10h · 2 malas despachadas</div>
+        </div>
+        <div class="transport-time">
+          <div class="transport-depart">31/08 · 21:20</div>
+          <div class="transport-arrive">Chegada 01/09 · 09:30</div>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <span class="alert-icon">🏠</span>
+        <div class="alert-text">
+          <strong>Último dia — check-out ao meio-dia, voo às 21:20</strong>
+          Check-out às 12h. Almoço de despedida (Lou Malnati's uma última vez? Portillo's na Magnificent Mile?). Transfer para ORD a partir das 15h — check-in recomendado às 17h30 para voo às 21:20. Chegada em Guarulhos às 09:30 de 01/09 → LIRABUS das 10h30 ou transfer direto para Campinas.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <p>✈️ <strong>Roteiro E&F | Canadá e EUA 2026</strong></p>
+  <p style="margin-top: 8px">Toronto · Montréal · Vancouver · Chicago &nbsp;|&nbsp; 13 de agosto a 01 de setembro de 2026</p>
+  <p style="margin-top: 8px; font-size: 0.75rem">Roteiro original pesquisado por Evelise · Guia personalizado gerado com carinho ❤️</p>
+</footer>
+
+<script>
+  function showCity(city) {
+    document.querySelectorAll('.city-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(city).classList.add('active');
+    const btn = document.querySelector(`.nav-btn.${city}`);
+    if (btn) btn.classList.add('active');
+    document.getElementById('main-nav').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
